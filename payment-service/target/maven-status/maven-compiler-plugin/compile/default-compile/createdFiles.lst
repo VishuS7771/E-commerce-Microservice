@@ -1,0 +1,10 @@
+com\paymentService\controller\PaymentController.class
+com\paymentService\domain\Payment$PaymentStatus.class
+com\paymentService\domain\Payment.class
+com\paymentService\client\InventoryClient$InventoryValidationRequest.class
+com\paymentService\client\InventoryClient.class
+com\paymentService\repository\PaymentRepository.class
+com\paymentService\domain\PaymentEvent.class
+com\paymentService\PaymentApplication.class
+com\paymentService\repository\PaymentEventRepository.class
+com\paymentService\service\PaymentService.class

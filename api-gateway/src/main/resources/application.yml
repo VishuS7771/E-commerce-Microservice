@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      routes:
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory/**
+          filters:
+            - StripPrefix=1
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/payment/**
+          filters:
+            - StripPrefix=1
+        - id: login
+          uri: http://localhost:8080
+          predicates:
+            - Path=/login
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.uuid}
+    hostname: localhost
+    metadata-map:
+      instance: api-gateway
+
+jwt:
+  secret: your-secure-jwt-secret-key-1234567890
+  expiration: 1800000
